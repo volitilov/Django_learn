@@ -5,6 +5,7 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name='home'),
-    url(r'^goods/(?:(?P<pk>\d+)/)?$', views.goods, name='goods'),
-    url(r'^goods/good/(?P<id>\d+)/$', views.good, name='good'),
+    url(r'^goods/$', views.goods, name='goods'),
+    url(r'^goods/good/(?P<name>[\w\s#]+)/$', views.good, name='good'),
+    url(r'^categories/category/(?P<name>[\w]+)/$', views.category, name='category'),
 ]

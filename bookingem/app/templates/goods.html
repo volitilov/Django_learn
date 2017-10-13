@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section>
+    <div class="body">
+        <div class="col-md-3 sidebar">
+            <h4>Категории:</h4>
+            <ul>
+                {% for cat in categories %}
+                    <li><a href="{% url 'category' cat.name %}">{{ cat.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <h4>Книги:</h4>
+            <table>
+                <tr>
+                    <th>Название</th>
+                    <th>Есть в наличии</th>
+                </tr>
+                {% for good in goods %}
+                <tr>
+                    <td><a href="{% url 'good' good.name %}">{{ good.name }}</a></td>
+                    <td class="centered">{% if good.in_stock %}+{% endif %}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% load static %}
+<header>
+	<nav class="head">
+		<div class="navbar-left col-sm-6">
+			<a href="/" title="Back to home">
+				<hgroup>
+					<span><img src="{% static 'img/favicon.png' %}"/></span>
+					<span>
+						<h3>Bookingem</h3>
+						<p>Книги для всех</p>
+					</span>
+				</hgroup>
+			</a>
+		</div>
+		<div class="navbar-right col-sm-6">
+			<menu>
+				<li><a href="{% url 'home' %}">Главная</a></li>
+				<li><a href="{% url 'goods' %}">Книги</a></li>
+			</menu>
+		</div>
+	</nav>
+</header>
