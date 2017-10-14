@@ -3,7 +3,7 @@ from django.http import (
     request, HttpResponse, Http404
 )
 from django.shortcuts import render
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, InvalidPage
 
 from .models import Category, Good
 
@@ -15,12 +15,15 @@ def index(request):
 
 def goods(request):
     goods = Good.objects.all().order_by('name')
+    paginator = Paginator(goods, 3)
     try:
         page_num = request.GET['page']
     except KeyError:
         page_num = 1
-    pag = Paginator(goods, 5)
-    goods = pag.page(page_num)
+    try:
+        goods = paginator.page(page_num)
+    except InvalidPage:
+        goods = paginator.page(1)
     data = {
         'title': 'Goods',
         'categories': Category.objects.all().order_by('id'),
@@ -35,7 +38,8 @@ def good(request, name):
         data = {
             'good': good,
             'title': good.name,
-            'categories': Category.objects.all().order_by('id')
+            'categories': Category.objects.all().order_by('id'),
+            'prev_page': request.session['prev_page']
         }
     except Good.DoesNotExist:
         raise Http404
@@ -46,13 +50,29 @@ def good(request, name):
 def category(request, name):
     try:
         category = Category.objects.get(name=name)
-        goods = category.good_set.all()
+        if name == 'Все':
+            goods = Good.objects.all()
+        else:
+            goods = category.good_set.all()
+        paginator = Paginator(goods, 1)
+        try:
+            page_num = request.GET['page']
+        except KeyError:
+            page_num = 1
+        try:
+            goods = paginator.page(page_num)
+            request.session['prev_page'] = page_num
+        except InvalidPage:
+            goods = paginator.page(1)
+            request.session['prev_page'] = 1
         data = {
             'title': category.name,
             'category': category,
             'categories': Category.objects.all().order_by('id'),
-            'goods': goods.order_by('id')
+            'goods': goods
         }
     except Category.DoesNotExist:
         raise Http404
     return render(request, 'category.html', data)
+
+

@@ -6,25 +6,51 @@
         <div class="col-md-3 sidebar">
             <h4>Категории:</h4>
             <ul>
-                {% for cat in categories %}
+                {% for cat in categories.reverse %}
                     <li><a href="{% url 'category' cat.name %}">{{ cat.name }}</a></li>
                 {% endfor %}
             </ul>
         </div>
         <div class="col-md-9">
             <h4>Книги:</h4>
-            <table>
-                <tr>
-                    <th>Название</th>
-                    <th>Есть в наличии</th>
-                </tr>
-                {% for good in goods %}
-                <tr>
-                    <td><a href="{% url 'good' good.name %}">{{ good.name }}</a></td>
-                    <td class="centered">{% if good.in_stock %}+{% endif %}</td>
-                </tr>
-                {% endfor %}
-            </table>
+            {% if goods.paginator.num_pages > 1 %}
+                <table>
+                    <tr>
+                        <th>Название</th>
+                        <th>Есть в наличии</th>
+                    </tr>
+                    {% for good in goods.object_list %}
+                    <tr>
+                        <td><a href="{% url 'good' good.name %}">{{ good.name }}</a></td>
+                        <td class="centered">{% if good.in_stock %}+{% endif %}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <div class="pagination">
+                    {% if goods.has_previous %}
+                        <div class="previous-page">
+                            <a href="{% url 'goods' %}?page={{ goods.previous_page_number }}">&lt;</a>
+                        </div>
+                    {% endif %}
+                    {% if goods.has_next %}
+                        <div class="next-page">
+                            <a href="{% url 'goods' %}?page={{ goods.next_page_number }}">&gt;</a>
+                        </div>
+                    {% endif %}
+                    <div class="num-pages">
+                        {% for pn in goods.paginator.page_range %}
+                            {% if not forloop.first %}
+                                &nbsp;&nbsp;|&nbsp;&nbsp;
+                            {% endif %}
+                            {% if goods.number != pn %}
+                                <a href="{% url 'goods' %}?page={{ pn }}">{{ pn }}</a>
+                            {% else %}
+                                {{ pn }}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
         </div>
     </div>
 </section>
