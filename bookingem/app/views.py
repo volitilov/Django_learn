@@ -14,7 +14,7 @@ def index(request):
 
 
 def goods(request):
-    goods = Good.objects.all().order_by('name')
+    goods = Good.objects.order_by('name')
     paginator = Paginator(goods, 3)
     try:
         page_num = request.GET['page']
@@ -26,7 +26,7 @@ def goods(request):
         goods = paginator.page(1)
     data = {
         'title': 'Goods',
-        'categories': Category.objects.all().order_by('id'),
+        'categories': Category.objects.order_by('id'),
         'goods': goods
     }
     return render(request, 'goods.html', data)
@@ -38,7 +38,7 @@ def good(request, name):
         data = {
             'good': good,
             'title': good.name,
-            'categories': Category.objects.all().order_by('id'),
+            'categories': Category.objects.order_by('id'),
             'prev_page': request.session['prev_page']
         }
     except Good.DoesNotExist:
@@ -68,7 +68,7 @@ def category(request, name):
         data = {
             'title': category.name,
             'category': category,
-            'categories': Category.objects.all().order_by('id'),
+            'categories': Category.objects.order_by('id'),
             'goods': goods
         }
     except Category.DoesNotExist:
