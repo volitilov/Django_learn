@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section>
+    <div class="body">
+        {% include 'components/_sidebar.html' %}
+        <div class="col-md-9">
+            <h4>{{ category.name }}</h4>
+            <p>{{ category.description }}</p>
+            <h4>Книги:</h4>
+            <table>
+                <tr>
+                    <th>Название</th>
+                    <th>Есть в наличии</th>
+                </tr>
+                {% for good in object_list %}
+                <tr>
+                    <td><a href="{% url 'good' good.name %}">{{ good.name }}</a></td>
+                    <td class="centered">{% if good.in_stock %}+{% endif %}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% include 'components/_paginator.html' %}
+        </div>
+    </div>
+</section>
+{% endblock %}

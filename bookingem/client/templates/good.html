@@ -3,14 +3,7 @@
 {% block content %}
 <section>
 	<div class="body">
-		<div class="col-md-3 sidebar">
-			<h4>Категории:</h4>
-			<ul>
-				{% for cat in categories %}
-					<li><a href="{% url 'category' cat.name %}">{{ cat.name }}</a></li>
-				{% endfor %}
-			</ul>
-		</div>
+		{% include 'components/_sidebar.html' %}
 		<div class="col-md-9">
 			<h3>{{ good.name }}</h3>
 			<p>{{ good.description }}</p>

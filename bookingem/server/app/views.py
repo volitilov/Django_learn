@@ -9,10 +9,6 @@ from .models import Category, Good
 
 # :::::::::::::::::::::::::::::::::::::::::::::
 
-def index(request):
-   return render(request, 'index.html')
-
-
 def goods(request):
     goods = Good.objects.order_by('name')
     paginator = Paginator(goods, 3)
