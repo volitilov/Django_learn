@@ -24,9 +24,8 @@ class Good(models.Model):
     name = models.CharField(max_length=50, unique=True, verbose_name='название')
     description = models.TextField(verbose_name='описание')
     in_stock = models.BooleanField(default=True, db_index=True, verbose_name='в наличии')
-    category = models.ForeignKey(Category, verbose_name='категория(и)', 
-                    null=True, blank=True)
-
+    category = models.ForeignKey(Category, verbose_name='категория',
+                                    null=True, blank=True)
 
     def __str__(self):
         s = self.name

@@ -43,6 +43,6 @@ Variance(<поле>, <дисперсия выборки>)
 
 # ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 Good.objects.aggregate(models.Avg("price"), models.Min("price"))
-avg_price = ad["price _ avg"]
+avg_price = ad["price_avg"]
 min_price = ad["price_min"]
 # Здесь мы получаем среднюю и минимальную цену товара.

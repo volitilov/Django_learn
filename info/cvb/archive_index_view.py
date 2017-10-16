@@ -45,9 +45,9 @@ url(r'^$', ArchiveindexView.as_view(model=New,
     # нас интересует лишь год.
 
 {% for new in latest %}
-    <hЗ>{{ new.title }}</hЗ>
-    <р>{{ new.pub_date }}</р>
-    <р>{{ new.description }}</р>
+    <h3>{{ new.title }}</h3>
+    <p>{{ new.pub_date }}</p>
+    <p>{{ new.description }}</p>
 {% endfor %}
 # Здесь мы выводим в шаблоне список новостей.
 
