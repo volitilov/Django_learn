@@ -3,16 +3,16 @@
 {% block content %}
 <section>
     <div class="body">
-        {% for post in latest %}
-            <a href="#"><h3>{{ post.title }}</h3></a>
-            <p>{{ post.pub_date }}</p>
-            <p>{{ post.description|truncatewords:50 }}</p>
-        {% endfor %}
-        <ul>
-        {% for date in date_list %}
-            <li>{{ date|date:"Y" }}</li>
-        {% endfor %}
-        </ul>
+        {% include 'components/_blog-sidebar.html' %}
+        <div class="col-md-9">
+            <h4>{{ category.name }}</h4>
+            <ul>
+                {% for post in object_list %}
+                <li><a href="{% url 'post' post.title %}">{{ post.title }}</a></li>
+                {% endfor %}
+            </ul>
+            {% include 'components/_blog-paginator.html' %}
+        </div>
     </div>
 </section>
 {% endblock %}

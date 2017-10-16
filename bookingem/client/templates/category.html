@@ -3,7 +3,7 @@
 {% block content %}
 <section>
     <div class="body">
-        {% include 'components/_sidebar.html' %}
+        {% include 'components/_goods-sidebar.html' %}
         <div class="col-md-9">
             <h4>{{ category.name }}</h4>
             <p>{{ category.description }}</p>
@@ -20,7 +20,7 @@
                 </tr>
                 {% endfor %}
             </table>
-            {% include 'components/_paginator.html' %}
+            {% include 'components/_good-paginator.html' %}
         </div>
     </div>
 </section>
