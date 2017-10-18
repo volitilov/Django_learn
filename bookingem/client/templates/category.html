@@ -7,6 +7,7 @@
         <div class="col-md-9">
             <h4>{{ category.name }}</h4>
             <p>{{ category.description }}</p>
+            <a href="{% url 'good_add' category.name %}">Добавить товар</a>
             <h4>Книги:</h4>
             <table>
                 <tr>
@@ -17,6 +18,12 @@
                 <tr>
                     <td><a href="{% url 'good' good.name %}">{{ good.name }}</a></td>
                     <td class="centered">{% if good.in_stock %}+{% endif %}</td>
+                    <td class="centered">
+                        <a href="{% url 'good_edit' good.name %}">Изменить</a>
+                    </td>
+                    <td class="centered">
+                        <a href="{% url 'good_del' good.name %}">Удалить</a>
+                    </td>
                 </tr>
                 {% endfor %}
             </table>

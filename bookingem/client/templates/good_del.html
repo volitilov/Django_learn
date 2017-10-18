@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section>
+	<div class="body">
+		{% include 'components/_goods-sidebar.html' %}
+		<div class="col-md-9">
+			<h3>{{ good.name }}</h3>
+			<p>{{ good.description }}</p>
+			{% if not good.in_stock %}
+				<h5>Нет в наличии</h5>
+            {% endif %}
+            <form action="" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Удалить">
+            </form>
+			<a href="{{ prev_page }}">Назад</a>
+		</div>
+	</div>
+</section>
+{% endblock %}
