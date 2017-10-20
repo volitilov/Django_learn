@@ -2,7 +2,6 @@ from django.views.generic.edit import (
     CreateView, UpdateView, DeleteView, ProcessFormView
 )
 from django.core.urlresolvers import reverse
-from django.urls import reverse_lazy, reverse
 
 from .views3 import ContextData
 from .models import Good, Category
@@ -21,7 +20,8 @@ class GoodCreate(CreateView, ContextData):
         return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        self.success_url = reverse('category', kwargs={'name': Category.objects.get(name=self.kwargs['name'])})
+        self.success_url = reverse('category', 
+            kwargs={'name': Category.objects.get(name=self.kwargs['name'])})
         return super().post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
@@ -40,7 +40,8 @@ class GoodUpdate(UpdateView, ContextData):
     slug_url_kwarg = 'name'
 
     def post(self, request, *args, **kwargs):
-        self.success_url = reverse('category', kwargs={'name': Category.objects.get(name=self.kwargs['name'])})
+        self.success_url = reverse('category', 
+            kwargs={'name': Good.objects.get(name=self.kwargs['name']).category})
         return super().post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
@@ -51,13 +52,13 @@ class GoodUpdate(UpdateView, ContextData):
 
 class GoodDelete(DeleteView, ContextData):
     model = Good
-    tempalte_name = 'good_del.html'
+    template_name = 'good_del.html'
     slug_field = 'name'
     slug_url_kwarg = 'name'
 
     def post(self, request, *args, **kwargs):
         self.success_url = reverse('category', 
-            kwargs={'name': Category.objects.get(name=self.kwargs['name'])})
+            kwargs={'name': 'Все'})
         return super().post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):

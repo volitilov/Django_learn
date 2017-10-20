@@ -9,7 +9,7 @@
 			<p>{{ good.description }}</p>
 			{% if not good.in_stock %}
 				<h5>Нет в наличии</h5>
-            {% endif %}
+			{% endif %}
             <form action="" method="post">
                 {% csrf_token %}
                 <input type="submit" value="Удалить">
