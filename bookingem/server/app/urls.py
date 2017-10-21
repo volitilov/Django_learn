@@ -5,10 +5,14 @@ from .views3 import (
 from .views4 import (
     GoodCreate, GoodUpdate, GoodDelete
 )
+from .views5 import GoodFilters
 
 # ::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 urlpatterns = [
+    url(r'^good_filters', GoodFilters.as_view(template_name='good_filters.html', 
+        name='good_filters')),
+        
     url(r'^(?P<name>[\s\w\.,#]+)/$', 
         GoodDetailView.as_view(template_name='good.html'), 
         name='good'),

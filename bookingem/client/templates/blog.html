@@ -5,12 +5,20 @@
     <div class="body">
         {% include 'components/_blog-sidebar.html' %}
         <div class="col-md-9">
-            <h4>{{ category.name }}</h4>
-            <ul>
+            <h4>Категория: {{ category.name }}</h4>
+            <a href="{% url 'post_add' category.name %}">Добавить пост</a>
+            <table>
                 {% for post in object_list %}
-                <li><a href="{% url 'post' post.title %}">{{ post.title }}</a></li>
+                <tr>
+                    <td><a href="{% url 'post' post.title %}">{{ post.title }}</a></td>
+                    <td class="centered">
+                        <a href="{% url 'post' post.title %}">
+                            <p>{{ post.description|truncatewords:50 }}</p>
+                        </a>
+                    </td>
+                </tr>
                 {% endfor %}
-            </ul>
+            </table>
             {% include 'components/_blog-paginator.html' %}
         </div>
     </div>

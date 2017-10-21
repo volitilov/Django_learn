@@ -3,12 +3,15 @@
 {% block content %}
 <section>
     <div class="body">
-        <form action="" method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Сохранить">
-        </form>
-        <a href="{{ prev_page }}">Назад</a>
+        {% include 'components/_goods-sidebar.html' %}
+        <div class="col-md-9">
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Сохранить">
+            </form>
+            <a href="{{ prev_page }}">Назад</a>
+        </div>
     </div>
 </section>
 {% endblock %}

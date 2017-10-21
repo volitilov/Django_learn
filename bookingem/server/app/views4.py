@@ -58,7 +58,7 @@ class GoodDelete(DeleteView, ContextData):
 
     def post(self, request, *args, **kwargs):
         self.success_url = reverse('category', 
-            kwargs={'name': 'Все'})
+            kwargs={'name': Good.objects.get(name=self.kwargs['name']).category})
         return super().post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):

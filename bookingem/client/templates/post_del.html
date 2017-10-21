@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section>
+	<div class="body">
+		{% include 'components/_blog-sidebar.html' %}
+		<div class="col-md-9">
+			<h3>{{ post.title }}</h3>
+			<p>{{ post.description }}</p>
+            <form action="" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Удалить">
+            </form>
+			<a href="{{ prev_page }}">Назад</a>
+		</div>
+	</div>
+</section>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section>
+    <div class="body">
+        {% include 'components/_blog-sidebar.html' %}
+        <form action="" method="post">
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+            </table>
+            <input type="submit" value="Добавить">
+        </form>
+        <a href="{{ prev_page }}">Назад</a>
+    </div>
+</section>
+{% endblock %}

@@ -5,9 +5,27 @@
     <div class="body">
         {% include 'components/_blog-sidebar.html' %}
         <div class="col-md-9">
-            <h3>{{ post.title }}</h3>
-            <p>{{ post.description }}</p>
-            <a href="{{ prev_page }}">Назад</a>
+            <table>
+                <tr>
+                    <td class="centered">{{ post.title }}</td>
+                </tr>
+                <tr>
+                    <td>{{ post.description }}</td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td class="centered">
+                        <a href="{% url 'post_edit' post.title %}">Изменить</a>
+                    </td>
+                    <td class="centered">
+                        <a href="{% url 'post_del' post.title %}">Удалить</a>
+                    </td>
+                    <td class="centered">
+                        <a href="{{ prev_page }}">Назад</a>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 </section>

@@ -7,7 +7,7 @@ from django.core.paginator import Paginator, InvalidPage
 
 from .models import Category, Good
 
-# :::::::::::::::::::::::::::::::::::::::::::::
+# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 def goods(request):
     goods = Good.objects.order_by('name')
