@@ -1,13 +1,15 @@
 from django.http import HttpRequest
 from django.shortcuts import redirect
 from django.views.generic.base import TemplateView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 
 from .models import Post, BlogCategory
 from .forms import PostForm
 
 # ::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-class PostCreate(TemplateView):
+class PostCreate(SuccessMessageMixin, TemplateView):
     form = None
     category = None
 
@@ -21,6 +23,7 @@ class PostCreate(TemplateView):
         self.form = PostForm(request.POST)
         if self.form.is_valid():
             self.form.save()
+            messages.success(request, 'Пост успешно добавлен.')
             return redirect(self.request.session['prev_page'])
         else:
             return super().post(request, *args, **kwargs)
@@ -49,6 +52,7 @@ class PostEdit(TemplateView):
         self.form = PostForm(request.POST, instance=post)
         if self.form.is_valid():
             self.form.save()
+            messages.success(request, 'Пост успешно изменён.')
             return redirect(self.request.session['prev_page'])
         else:
             return super().post(request, *args, **kwargs)
@@ -65,6 +69,7 @@ class PostEdit(TemplateView):
 class PostDelete(TemplateView):
     def post(self, request, **kwargs):
         Post.objects.get(title=self.kwargs['title']).delete()
+        messages.success(request, 'Пост успешно удалён.')
         return redirect(self.request.session['prev_page'])
 
     def get_context_data(self, **kwargs):

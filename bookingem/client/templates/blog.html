@@ -3,22 +3,18 @@
 {% block content %}
 <section>
     <div class="body">
-        {% include 'components/_blog-sidebar.html' %}
+        {% include 'components/_sidebar.html' %}
         <div class="col-md-9">
             <h4>Категория: {{ category.name }}</h4>
             <a href="{% url 'post_add' category.name %}">Добавить пост</a>
-            <table>
-                {% for post in object_list %}
-                <tr>
-                    <td><a href="{% url 'post' post.title %}">{{ post.title }}</a></td>
-                    <td class="centered">
-                        <a href="{% url 'post' post.title %}">
-                            <p>{{ post.description|truncatewords:50 }}</p>
-                        </a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </table>
+            {% for post in object_list %}
+                <article>
+                    <a href="{% url 'post' post.title %}">
+                        <h4>{{ post.title }}</h4>
+                        <p>{{ post.description|truncatewords:50 }}</p>
+                    </a>
+                </article>
+            {% endfor %}
             {% include 'components/_blog-paginator.html' %}
         </div>
     </div>

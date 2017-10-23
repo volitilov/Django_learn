@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section>
+    <div class="body">
+        {% include 'components/_sidebar.html' %}
+        <div class="col-md-9">
+            <h3>Результаты поиска.</h3>
+            <p>Категория: {{ category }}</p>
+            <a href="{% url 'good_add' category %}">Добавить пост</a>
+            {% for good in object_list %}
+                <article>
+                    <a href="{% url 'good' good.name %}">
+                        <h4>{{ good.name }}</h4>
+                        <p>{{ good.description|truncatewords:50 }}</p>
+                    </a>
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

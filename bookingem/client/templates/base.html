@@ -24,6 +24,7 @@
 	<link rel="stylesheet" href="{% static 'css/components/sidebar.css' %}" />
 	<link rel="stylesheet" href="{% static 'css/components/paginator.css' %}" />
 	<link rel="stylesheet" href="{% static 'css/components/footer.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/components/messages.css' %}" />
 	
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=cyrillic" rel="stylesheet"/>
 	
@@ -31,6 +32,16 @@
 
 <body>
 	{% include 'components/_head.html' %}
+	{% if messages %}
+		<ul class="message-list">
+			{% for message in messages %}
+			<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+				{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Важно: {% endif %}	
+				{{ message }}
+			</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
 	{% block content %}{% endblock %}
 	{% include 'components/_footer.html' %}
 </body>

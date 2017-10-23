@@ -6,14 +6,7 @@ from .models import Post, BlogCategory
 
 # ::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-class ContextData(ContextMixin):
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['categories'] = BlogCategory.objects.order_by('id')
-        return context
-
-
-class BlogListView(ListView, ContextData):
+class BlogListView(ListView):
     paginate_by = 3
     posts = None
     category = None
@@ -30,6 +23,7 @@ class BlogListView(ListView, ContextData):
         context = super().get_context_data(**kwargs)
         context['title'] = self.category.name
         context['category'] = self.category
+        context['categories'] = BlogCategory.objects.order_by('id')
         context['posts'] = self.posts
         self.request.session['prev_page'] = self.request.get_full_path()
         return context
@@ -39,7 +33,7 @@ class BlogListView(ListView, ContextData):
 
 
 
-class PostDetailView(DetailView, ContextData):
+class PostDetailView(DetailView):
     model = Post
     slug_field = 'title'
     slug_url_kwarg = 'title'
@@ -47,5 +41,6 @@ class PostDetailView(DetailView, ContextData):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Post'
+        context['categories'] = BlogCategory.objects.order_by('id')
         context['prev_page'] = self.request.session['prev_page']
         return context
