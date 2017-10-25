@@ -17,6 +17,11 @@
 				<li><a href="{% url 'home' %}">Главная</a></li>
 				<li><a href="{% url 'category' 'Все' %}">Книги</a></li>
 				<li><a href="{% url 'blog' 'Все' %}">Блог</a></li>
+				{% if user.is_authenticated %}
+					<li><a href="{% url 'account_logout' %}">Log out</a></li>
+				{% else %}
+					<li><a href="{% url 'account_login' %}">Log in</a></li>
+				{% endif %}
 			</menu>
 		</div>
 	</nav>

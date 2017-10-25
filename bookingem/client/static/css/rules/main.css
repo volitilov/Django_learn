@@ -26,3 +26,6 @@ div, header, section, footer, .body {
     width: 100%;
     height: auto;
 }
+.content {
+    padding: 0px 10px;
+}

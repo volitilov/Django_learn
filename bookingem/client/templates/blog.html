@@ -1,16 +1,21 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
 <section>
     <div class="body">
         {% include 'components/_sidebar.html' %}
-        <div class="col-md-9">
-            <h4>Категория: {{ category.name }}</h4>
-            <a href="{% url 'post_add' category.name %}">Добавить пост</a>
+        <div class="col-md-9 content">
+            <h1>{{ test }}</h1>
+            <h4>Категория: {{ category }}</h4>
+            <a href="{% url 'post_add' category %}">Добавить пост</a>
             {% for post in object_list %}
                 <article>
                     <a href="{% url 'post' post.title %}">
                         <h4>{{ post.title }}</h4>
+                        {% if post.thumbnail %}
+                            <img src="{{ post.thumbnail.url }}" alt="">
+                        {% endif %}
                         <p>{{ post.description|truncatewords:50 }}</p>
                     </a>
                 </article>

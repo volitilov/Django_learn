@@ -5,7 +5,7 @@
     <div class="body">
         {% include 'components/_sidebar.html' %}
         <div class="col-md-9">
-            <form action="" method="post">
+            <form action="" method="post" {% if form.is_multipart %} enctype="multipart/form-data" {% endif %}>
                 {% csrf_token %}
                 <table>
                     {{ form.as_table }}

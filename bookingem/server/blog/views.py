@@ -1,6 +1,7 @@
 from django.views.generic.base import ContextMixin
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.utils.translation import ugettext as _
 
 from .models import Post, BlogCategory
 
@@ -22,7 +23,8 @@ class BlogListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = self.category.name
-        context['category'] = self.category
+        context['category'] = _(self.category.name)
+        context['test'] = _('Test')
         context['categories'] = BlogCategory.objects.order_by('id')
         context['posts'] = self.posts
         self.request.session['prev_page'] = self.request.get_full_path()

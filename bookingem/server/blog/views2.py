@@ -1,7 +1,6 @@
 from django.http import HttpRequest
 from django.shortcuts import redirect
 from django.views.generic.base import TemplateView
-from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 
 from .models import Post, BlogCategory
@@ -9,7 +8,7 @@ from .forms import PostForm
 
 # ::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-class PostCreate(SuccessMessageMixin, TemplateView):
+class PostCreate(TemplateView):
     form = None
     category = None
 
@@ -19,14 +18,14 @@ class PostCreate(SuccessMessageMixin, TemplateView):
             'category': self.category})
         return super().get(request, **kwargs)
 
-    def post(self, request, *args, **kwargs):
-        self.form = PostForm(request.POST)
+    def post(self, request, **kwargs):
+        self.form = PostForm(request.POST, request.FILES)
         if self.form.is_valid():
             self.form.save()
             messages.success(request, 'Пост успешно добавлен.')
             return redirect(self.request.session['prev_page'])
         else:
-            return super().post(request, *args, **kwargs)
+            return super().post(request, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -47,15 +46,15 @@ class PostEdit(TemplateView):
         self.form = PostForm(instance=self.post)
         return super().get(request, **kwargs)
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, **kwargs):
         post = Post.objects.get(title=self.kwargs['title'])
-        self.form = PostForm(request.POST, instance=post)
+        self.form = PostForm(request.POST, request.FILES, instance=post)
         if self.form.is_valid():
             self.form.save()
             messages.success(request, 'Пост успешно изменён.')
             return redirect(self.request.session['prev_page'])
         else:
-            return super().post(request, *args, **kwargs)
+            return super().post(request, **kwargs)
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

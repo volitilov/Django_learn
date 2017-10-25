@@ -4,23 +4,25 @@
 <section>
     <div class="body">
         {% include 'components/_sidebar.html' %}
-        <div class="col-md-9">
+        <div class="col-md-9 content">
+            <article>
+                <h4>{{ post.title }}</h4>
+                {% if post.thumbnail %}
+                    <img src="{{ post.thumbnail.url }}" alt="">
+                {% endif %}
+                {{ post.description }}
+            </article>
+            <br>
             <table>
                 <tr>
-                    <td class="centered">{{ post.title }}</td>
-                </tr>
-                <tr>
-                    <td>{{ post.description }}</td>
-                </tr>
-            </table>
-            <table>
-                <tr>
-                    <td class="centered">
-                        <a href="{% url 'post_edit' post.title %}">Изменить</a>
-                    </td>
-                    <td class="centered">
-                        <a href="{% url 'post_del' post.title %}">Удалить</a>
-                    </td>
+                    {% if user.is_authenticated %}
+                        <td class="centered">
+                            <a href="{% url 'post_edit' post.title %}">Изменить</a>
+                        </td>
+                        <td class="centered">
+                            <a href="{% url 'post_del' post.title %}">Удалить</a>
+                        </td>
+                    {% endif %}
                     <td class="centered">
                         <a href="{{ prev_page }}">Назад</a>
                     </td>

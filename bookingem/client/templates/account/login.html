@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load socialaccount %}
+{% load i18n %}
+
+{% block content %}
+
+<p>У Вас нет учетной записи? <a href="{{ signup_url }}">Зарегистрироваться</a></p>
+
+
+<form class="login" method="POST" action="{% url 'account_login' %}">
+  {% csrf_token %}
+  <table>
+      {{ form.as_table }}
+  </table>
+  {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+  <a href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+  <a href="{% provider_login_url "github" %}">Github</a>
+  <a href="{% provider_login_url "google" %}">Google</a>
+  <input type="submit" value="Войти">
+</form>
+
+{% endblock %}

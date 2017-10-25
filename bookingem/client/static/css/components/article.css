@@ -1,0 +1,12 @@
+article {
+    box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, .1);
+    padding: 20px;
+    border-radius: 4px;
+    display: block;
+    position: relative;
+    margin: 10px 0px;
+    cursor: pointer;
+}
+article:hover {
+    box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, .3);
+}
