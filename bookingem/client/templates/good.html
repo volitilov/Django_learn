@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load comments %}
 
 {% block content %}
 <section>
@@ -11,6 +12,14 @@
 				<h5>Нет в наличии</h5>
 			{% endif %}
 			<a href="{{ prev_page }}">Назад</a>
+			<div class="comments">
+				{% get_comment_count for good as good_comments_count %}
+				<p>Количество комментариев: {{ good_comments_count }}</p>
+				<hr />
+				{% render_comment_list for good %}
+				<hr />
+				{% render_comment_form for good %}
+			</div>
 		</div>
 	</div>
 </section>

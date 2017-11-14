@@ -46,3 +46,5 @@ class PostDetailView(DetailView):
         context['categories'] = BlogCategory.objects.order_by('id')
         context['prev_page'] = self.request.session['prev_page']
         return context
+
+

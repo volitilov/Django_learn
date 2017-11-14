@@ -28,7 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'bootstrap3',
+    'django_comments',
 
     'allauth',
     'allauth.account',
@@ -79,6 +79,13 @@ AUTHENTICATION_BACKENDS = (
 SITE_ID = 1
 
 WSGI_APPLICATION = 'my_settings.wsgi.application'
+
+
+# максимальная длина комментария
+COMMENT_MAX_LENGTH = 1024
+# включение/выключение комментариев из списка по умолчанию выключины (True)
+COMMENTS_HIDE_REWARDS = False
+
 
 
 # Database

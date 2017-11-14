@@ -25,7 +25,7 @@ orphans
 
 allow_empty_first_page
 # имеет смысл, когда переданный конструктору список позиций 
-# пуст. Если значение данного параметра равно тrue, при обращении
+# пуст. Если значение данного параметра равно True, при обращении
 # к первой странице мы получим эту страницу, разумеется, пустую. 
 # Если же зна­чение параметра равно False при обращении к первой 
 # странице будет сгенери­ровано исключение EmptyPage
@@ -43,7 +43,7 @@ page_range
 # на­чиная с единицы (вида [1, 2, 3 ... ]).
 
 # Например:
-page_count = pag.nшn_pages
+page_count = pag.num_pages
 
 
 # Кроме того, класс Paginator поддерживает метод page.
@@ -74,7 +74,7 @@ EmptyPage
 # Классы исключений PageNotAninteger и EmptyPage являются потомками 
 # класса InvalidPage. Так что мы можем обрабатывать либо InvalidPage, 
 # либо PageNotAninteger и EmptyPage:
-from django.core .paginator import InvalidPage
+from django.core.paginator import InvalidPage
 ...
 try:
     goods = pag.page(page_num)
@@ -83,8 +83,10 @@ except InvalidPage:
 
 # Класс Page поддерживает два полезных свойства:
 number # возвращает номер данной страницы;
-paginator # возвращает объект класса Paginator, с применением которого 
-          # была создана эта страница.
+
+paginator 
+# возвращает объект класса Paginator, с применением которого 
+# была создана эта страница.
 
 
 # Методы класса Page ::::::::::::::::::::::::::::::::::::::::::::::::
