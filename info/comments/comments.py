@@ -137,3 +137,51 @@ urlpatterns = [
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 Управление выводом формы для комментирования
 
+# Получаем форму комментирования
+{ % get_comment_form for <объект> as <переменная> % }
+
+# Интернет-адрес, по которому будут отправлены введенные в форму данные, можно
+# получить с помощью тега шаблона comment_form_target. Этот интернет-адрес мы
+# укажем в атрибуте action тега <form>.
+{% get_comment_form for event as form %}
+<table>
+  <form action="{% comment_form_target %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <tr>
+      <td colspan="2">
+        <input type="submit" name="submit" value="Post">
+        <input type="submit" name="preview" value="Preview">
+      </td>
+    </tr>
+  </form>
+</table>
+
+# Интернет-адрес, по которому должно быть выполнено перенаправление, задается
+# прямо в форме комментирования. Для этого мы создадим в ней скрытое поле
+# с именем next и в качестве его значения укажем нужный нам интернет-адрес:
+<input type="hidden" name="next" value="{% url 'my_comment_was_posted' %}" />
+
+
+{% if user.is_authenticated %}
+    {% get_comment_form for object as form %}
+    <form action="{% comment_form_target %}" method="POST">
+    {% csrf_token %}
+    {{ form.comment }}
+    {{ form.honeypot }}
+    {{ form.content_type }}
+    {{ form.object_pk }}
+    {{ form.timestamp }}
+    {{ form.security_hash }}
+    <input type="hidden" name="next" value="{% url 'object_detail_view' object.id %}" />
+    <input type="submit" value="Add comment" id="id_submit" />
+    </form>
+{% else %}
+    <p>Please <a href="{% url 'auth_login' %}">log in</a> to leave a comment.</p>
+{% endif %}
+
+# нужно скрыть поле honeypot в вашем CSS:
+
+#id_honeypot {
+    display: none;
+}

@@ -13,12 +13,29 @@
 			{% endif %}
 			<a href="{{ prev_page }}">Назад</a>
 			<div class="comments">
-				{% get_comment_count for good as good_comments_count %}
-				<p>Количество комментариев: {{ good_comments_count }}</p>
-				<hr />
-				{% render_comment_list for good %}
-				<hr />
-				{% render_comment_form for good %}
+				{% if user.is_authenticated %}
+					{% get_comment_form for good as form %}
+					<form action="{% comment_form_target %}" method="POST">
+						{% csrf_token %}
+						{% for field in form.hidden_fields %}
+							{{ field }}
+						{% endfor %}
+						{% for field in form.visible_fields %}
+							{% if field.name == 'name' or field.name == 'email' or field.name == 'honeypot' or field.name == 'url' %}
+							{% else %}
+								{{ field }}
+							{% endif %}
+						{% endfor %}
+						<input type="hidden" name="next" value="{% url 'good' good.name %}" />
+						<input type="submit" value="Add comment" id="id_submit" />
+					</form>
+				{% else %}
+					<p>Please <a href="{% url 'account_login' %}">log in</a> to leave a comment.</p>
+				{% endif %}
+				{% get_comment_list for good as comments %}
+				{% for comment in comments %}
+					{{ comment }}
+				{% endfor %}
 			</div>
 		</div>
 	</div>
