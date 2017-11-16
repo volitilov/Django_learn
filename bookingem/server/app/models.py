@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 
 # ::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -26,6 +27,9 @@ class Good(models.Model):
     in_stock = models.BooleanField(default=True, db_index=True, verbose_name='в наличии')
     category = models.ForeignKey(Category, verbose_name='категория',
                                     null=True, blank=True)
+    
+    def get_absolute_url(self):
+        return reverse('good', kwargs={'name': self.name})
 
     def __str__(self):
         s = self.name

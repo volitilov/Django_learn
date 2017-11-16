@@ -1,0 +1,7 @@
+На сайте был оставлен новый комментарий:
+- товар: {{ content_object.name }} (http://www.somesite.ru{{ content_object.get_absolute_url }});
+- пользователь: {{ comment.user_name }};
+- e-mail: {{ comment.user_email }};
+- содержимое: {{ comment.comment }};
+- дата: {{ comment.suЬmit_date }};
+- IР-адрес: {{ comment.ip_address }}.

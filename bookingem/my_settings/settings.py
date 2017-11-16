@@ -121,8 +121,16 @@ LOGIN_URL = 'account_login'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_URL = 'account_logout'
 
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+МANAGERS = (("admin", "volitilov@gmail.com"), ("moderator", "volitilov@gmail.com"))
+EМAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 465
+EМAIL_HOST_USER = 'volitilov'
+EМAIL_HOST_PASSWORD = 'Kendar6709'
+EМAIL_USE_TLS = True
+DEFAULT_FROM_EМAIL = 'volitilov@gmail.com'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
