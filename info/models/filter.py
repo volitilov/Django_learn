@@ -97,6 +97,8 @@ isnull
 # :::::::::::::::::::::::::::::::::::
 # для строк
 
+Question.objects.filter(title__startswith='Кто')
+
 iexact 
 # То же самое, что exact, но без учета регистра символов
 
@@ -145,6 +147,10 @@ range
 
 # ::::::::::::::::::::::::::::::::::::
 # дата, дата и время
+
+from django.utils import timezone
+current_year = timezone.now().year
+Question.objects.get(pub_date__year=current_year)
 
 year 
 # Значение поля должно принадлежать к указанному нами году
